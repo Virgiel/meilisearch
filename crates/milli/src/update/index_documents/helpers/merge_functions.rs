@@ -32,8 +32,10 @@ impl MergeFunction for MergeRoaringBitmaps {
         } else {
             let merged = values
                 .iter()
-                .map(AsRef::as_ref)
-                .map(RoaringBitmap::deserialize_from)
+                .map(|it| {
+                    let slice: &[u8] = it;
+                    RoaringBitmap::deserialize_from(slice)
+                })
                 .map(StdResult::unwrap)
                 .reduce(|a, b| a | b)
                 .unwrap();
