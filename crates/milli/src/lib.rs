@@ -6,6 +6,8 @@
 #[global_allocator]
 pub static ALLOC: mimalloc::MiMalloc = mimalloc::MiMalloc;
 
+pub use http_client::policy::IpPolicy;
+
 #[macro_use]
 pub mod documents;
 
